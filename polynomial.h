@@ -12,9 +12,17 @@ class Polynomial {
  public:
     Polynomial() = default;
 
-    Polynomial(std::map<unsigned, T>);
+    Polynomial(std::map<unsigned, T> terms) {
+        for (auto &p : terms) {
+            if (p.second != (T)0) {
+                this->terms[p.first] = p.second;
+            }
+        }
+    }
 
-    size_t length();
+    size_t length() {
+        return terms.size();
+    }
 
     T coefficient(unsigned term) {
         if (terms.count(term) != 0) {
@@ -24,19 +32,32 @@ class Polynomial {
         }
     }
 
-    Polynomial<T> operator+ (Polynomial<T> const &other);
+    Polynomial<T> operator+ (Polynomial<T> const &other) {
+        return other;
+    }
 
-    Polynomial<T> operator- (Polynomial<T> const &other);
+    Polynomial<T> operator- (Polynomial<T> const &other) {
+        return other;
+    }
 
-    Polynomial<T> operator* (Polynomial<T> const &other);
+    Polynomial<T> operator* (Polynomial<T> const &other) {
+        return other;
+    }
 
-    void print(std::ostream& os, std::string variable="x");
+    void print(std::ostream& os, std::string variable="x") {
+
+    }
     
-    std::ostream& operator<< (std::ostream& os);
+    std::ostream& operator<< (std::ostream& os) {
+        print(os);
+        return os;
+    }
 
-    Polynomial<T> differentiate();
+    Polynomial<T> differentiate() {
+        return *this;
+    }
 
-    T operator() (T value);
+    T operator() (T value) {
+        return value;
+    }
 };
-
-#include "polynomial_impl.h"
