@@ -1,8 +1,11 @@
-#include "polynomial.h"
-
 template<typename T>
 Polynomial<T>::Polynomial(std::map<unsigned, T> cs) :
     coefficients(cs) {
+}
+
+template<typename T>
+size_t Polynomial<T>::length() {
+    return coefficients.size();
 }
 
 template<typename T>
@@ -26,11 +29,11 @@ std::ostream& Polynomial<T>::operator<< (std::ostream& os) {
 }
 
 template<typename T>
-Polynomial<T> differentiate() {
+Polynomial<T> Polynomial<T>::differentiate() {
     return *this;
 }
 
 template<typename T>
-T Polynomial<T>::opetator() (T value) {
+T Polynomial<T>::operator() (T value) {
     return value;
 }

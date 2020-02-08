@@ -13,6 +13,8 @@ class Polynomial {
 
     Polynomial(std::map<unsigned, T>);
 
+    size_t length();
+
     Polynomial<T> operator+ (Polynomial<T> const &other);
 
     Polynomial<T> operator- (Polynomial<T> const &other);
@@ -23,5 +25,7 @@ class Polynomial {
 
     Polynomial<T> differentiate();
 
-    T opetator() (T value);
-}
+    T operator() (T value);
+};
+
+#include "polynomial_impl.h"
