@@ -11,7 +11,7 @@ class Polynomial {
  public:
     Polynomial() = default;
 
-    Polynomial(std::map<std::pair<unsigned, T>>);
+    Polynomial(std::map<unsigned, T>);
 
     Polynomial<T> operator+ (Polynomial<T> const &other);
 
