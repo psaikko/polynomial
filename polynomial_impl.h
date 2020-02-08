@@ -1,11 +1,11 @@
 template<typename T>
-Polynomial<T>::Polynomial(std::map<unsigned, T> cs) :
-    coefficients(cs) {
+Polynomial<T>::Polynomial(std::map<unsigned, T> ts) :
+    terms(ts) {
 }
 
 template<typename T>
 size_t Polynomial<T>::length() {
-    return coefficients.size();
+    return terms.size();
 }
 
 template<typename T>
@@ -25,7 +25,12 @@ Polynomial<T> Polynomial<T>::operator* (Polynomial<T> const &other) {
 
 template<typename T>
 std::ostream& Polynomial<T>::operator<< (std::ostream& os) {
+    print(os);
     return os;
+}
+
+template<typename T>
+void Polynomial<T>::print(std::ostream& os, std::string variable) {
 }
 
 template<typename T>
