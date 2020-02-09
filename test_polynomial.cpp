@@ -78,11 +78,49 @@ TEST_CASE( "Stream formatting" ) {
 }
 
 TEST_CASE( "Addition" ) {
-    REQUIRE(false);
+    Polynomial<int> p1( {{0,1}, {1,1}} );
+    Polynomial<int> p2( {{1,1}, {2,1}} );
+
+    Polynomial<int> p3 = p1 + p2;
+
+    // Result coefficients are added
+    REQUIRE( p3.coefficient(0) == 1 );
+    REQUIRE( p3.coefficient(1) == 2 );
+    REQUIRE( p3.coefficient(2) == 1 );
+
+    // Terms of the sum are unchanged
+    REQUIRE( p1.coefficient(0) == 1);
+    REQUIRE( p1.coefficient(1) == 1);
+    REQUIRE( p2.coefficient(1) == 1);
+    REQUIRE( p2.coefficient(2) == 1);
+
+    // Polynomials have correct length
+    REQUIRE( p1.length() == 2 );
+    REQUIRE( p2.length() == 2 );
+    REQUIRE( p3.length() == 3 );
 }
 
 TEST_CASE( "Subtraction" ) {
-    REQUIRE(false);
+    Polynomial<int> p1( {{0,1}, {1,1}} );
+    Polynomial<int> p2( {{1,1}, {2,1}} );
+
+    Polynomial<int> p3 = p1 - p2;
+
+    // Result coefficients are subtracted
+    REQUIRE( p3.coefficient(0) == 1 );
+    REQUIRE( p3.coefficient(1) == 0 );
+    REQUIRE( p3.coefficient(2) == -1 );
+
+    // Terms of the sum are unchanged
+    REQUIRE( p1.coefficient(0) == 1);
+    REQUIRE( p1.coefficient(1) == 1);
+    REQUIRE( p2.coefficient(1) == 1);
+    REQUIRE( p2.coefficient(2) == 1);
+
+    // Polynomials have correct length
+    REQUIRE( p1.length() == 2 );
+    REQUIRE( p2.length() == 2 );
+    REQUIRE( p3.length() == 2 );
 }
 
 TEST_CASE( "Multiplication" ) {
