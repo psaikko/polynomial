@@ -41,11 +41,7 @@ class Polynomial {
             unsigned exponent = term.first;
             T coefficient = term.second;
 
-            if (result.terms.count(exponent)) {
-                result.terms[exponent] += coefficient;
-            } else {
-                result.terms[exponent] = coefficient;
-            }
+            result.terms[exponent] += coefficient;
 
             // Remove zero-coefficient terms
             if (result.terms[exponent] == T()) 
@@ -79,11 +75,7 @@ class Polynomial {
                 unsigned result_exponent = exponent_1 + exponent_2;
                 T result_coefficient = coefficient_1 * coefficient_2;
 
-                if (result.terms.count(result_exponent)) {
-                    result.terms[result_exponent] += result_coefficient;
-                } else { 
-                    result.terms[result_exponent] = result_coefficient;
-                }
+                result.terms[result_exponent] += result_coefficient;
 
                 // Remove zero-coefficient terms
                 if (result.terms[result_exponent] == T()) 
