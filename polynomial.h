@@ -85,6 +85,22 @@ class Polynomial {
         return result;
     }
 
+    Polynomial<T> differentiate() {
+        Polynomial<T> result;
+        for (auto &term : terms) {
+            unsigned exponent = term.first;
+            T coefficient = term.second;
+
+            if (exponent > 0) {
+                coefficient *= exponent;
+                exponent--;
+
+                result.terms[exponent] = coefficient;
+            }
+        }
+        return result;
+    }
+
     bool operator== (Polynomial<T> const &other) const {
         return terms == other.terms;
     }
@@ -122,10 +138,6 @@ class Polynomial {
             if (it->first > 1)
                 os << "^" << it->first;
         }
-    }
-
-    Polynomial<T> differentiate() {
-        return *this;
     }
 
     T operator() (T value) {

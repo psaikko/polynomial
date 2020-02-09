@@ -144,7 +144,14 @@ TEST_CASE( "Multiplication" ) {
 }
 
 TEST_CASE( "Differentiation" ) {
-    REQUIRE(false);
+    Polynomial<int> p( {{0,3},{1,-2},{2,2}} );
+    Polynomial<int> dp( {{0,-2},{1,4},{2,0}} );
+    Polynomial<int> ddp( {{0,4},{1,0},{2,0}} );
+    Polynomial<int> dddp;
+
+    REQUIRE( p.differentiate() == dp );
+    REQUIRE( p.differentiate().differentiate() == ddp );
+    REQUIRE( p.differentiate().differentiate().differentiate() == dddp );
 }
 
 TEST_CASE( "Evaluation" ) {
