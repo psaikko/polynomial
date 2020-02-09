@@ -45,7 +45,7 @@ class Polynomial {
     }
 
     bool operator== (Polynomial<T> const &other) const {
-        return false;
+        return terms == other.terms;
     }
 
     bool operator!= (Polynomial<T> const &other) const {

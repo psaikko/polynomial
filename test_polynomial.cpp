@@ -26,8 +26,13 @@ TEST_CASE( "Equality checks" ) {
     Polynomial<int> p4( {{1,1},{3,1}} );
     Polynomial<int> p5( std::map<unsigned,int>({{1,2}}) );
 
+    REQUIRE( p1 == p1 );
     REQUIRE( p1 == p2 );
+    REQUIRE( p2 == p1 );
     REQUIRE( p1 == p3 );
-    REQUIRE( p1 != p3 );
+    REQUIRE( p3 == p1 );
     REQUIRE( p1 != p4 );
+    REQUIRE( p4 != p1 );
+    REQUIRE( p1 != p5 );
+    REQUIRE( p5 != p1 );
 }
