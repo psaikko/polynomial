@@ -67,7 +67,30 @@ class Polynomial {
     }
 
     Polynomial<T> operator* (Polynomial<T> const &other) const {
-        return other;
+        Polynomial<T> result;
+        for (auto &p1 : terms) {
+            unsigned exponent_1 = p1.first;
+            T coefficient_1 = p1.second;
+
+            for (auto &p2 : other.terms) {
+                unsigned exponent_2 = p2.first;
+                T coefficient_2 = p2.second;
+
+                unsigned result_exponent = exponent_1 + exponent_2;
+                T result_coefficient = coefficient_1 * coefficient_2;
+
+                if (result.terms.count(result_exponent)) {
+                    result.terms[result_exponent] += result_coefficient;
+                } else { 
+                    result.terms[result_exponent] = result_coefficient;
+                }
+
+                // Remove zero-coefficient terms
+                if (result.terms[result_exponent] == T()) 
+                    result.terms.erase(result_exponent);
+            }
+        }
+        return result;
     }
 
     bool operator== (Polynomial<T> const &other) const {

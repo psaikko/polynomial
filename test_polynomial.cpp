@@ -124,16 +124,23 @@ TEST_CASE( "Subtraction" ) {
 }
 
 TEST_CASE( "Negation" ) {
-    Polynomial<int> p( {{0,-7}, {1,3}, {2,5}});
-    Polynomial<int> negation = -p;
+    Polynomial<int> p( {{0,-7}, {1,3}, {2,5}} );
+    Polynomial<int> neg_p( {{0,7}, {1,-3}, {2,-5}} );
 
-    REQUIRE( negation.coefficient(0) == 7 );
-    REQUIRE( negation.coefficient(1) == -3 );
-    REQUIRE( negation.coefficient(2) == -5 );
+    REQUIRE( neg_p == -p );
 }
 
-TEST_CASE( "Multiplication" ) {
-    REQUIRE(false);
+TEST_CASE( "Multiplication" ) { 
+    Polynomial<int> p( {{0,2},{1,-2}} );
+    Polynomial<int> q( {{0,2},{1, 2}} );
+    Polynomial<int> p_times_q( {{0,4},{2,-4}} );
+
+    REQUIRE( p*q == p_times_q);
+
+    Polynomial<int> r( {{0,1},{1,-1}} );
+    Polynomial<int> r_times_r( {{0,1}, {1,-2}, {2,1}} );
+
+    REQUIRE( r*r == r_times_r);
 }
 
 TEST_CASE( "Differentiation" ) {
