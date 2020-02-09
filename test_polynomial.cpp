@@ -22,6 +22,10 @@ TEST_CASE( "Constructor doesn't set 0-terms" ) {
 }
 
 TEST_CASE( "Equality checks" ) {
+    // Explicit cast to std::map required 
+    // likely due to gcc (v. 7.4.0, 9.2.0) bug 
+    // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=84849
+    // Works without cast using e.g. Intel compiler (v. 19.1.0)
     Polynomial<int> p1( std::map<unsigned,int>({{1,1}}) );
     Polynomial<int> p2( std::map<unsigned,int>({{1,1}}) );
     Polynomial<int> p3( {{0,0},{1,1},{2,0}} );
