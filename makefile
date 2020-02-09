@@ -1,2 +1,2 @@
 tests: test_polynomial.cpp
-	$(CXX) $< -o $@
+	$(CXX) --std=c++14 $< -o $@
