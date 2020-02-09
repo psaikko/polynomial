@@ -52,13 +52,35 @@ class Polynomial {
         return !(*this == other);
     }
 
-    void print(std::ostream& os, std::string variable="x") {
+    void print(std::ostream& os, std::string variable="x") const {
+        // Handle zero polynomial
+        if (terms.size() == 0) {
+            os << 0;
+            return;
+        }
 
-    }
-    
-    std::ostream& operator<< (std::ostream& os) {
-        print(os);
-        return os;
+        // First term
+        auto it = terms.rbegin();
+        os << it->second;
+        if (it->first > 0)
+            os << variable;
+        if (it->first > 1)
+            os << "^" << it->first;
+
+        // Rest of the terms
+        while (++it != terms.rend()) {
+            if (it->second < 0) {
+                os << " - ";
+            } else {
+                os << " + ";
+            }
+
+            os << abs(it->second);
+            if (it->first > 0)
+                os << variable;
+            if (it->first > 1)
+                os << "^" << it->first;
+        }
     }
 
     Polynomial<T> differentiate() {
@@ -69,3 +91,9 @@ class Polynomial {
         return value;
     }
 };
+
+template<typename T>
+std::ostream& operator<< (std::ostream& os, Polynomial<T> const &p) {
+    p.print(os);
+    return os;
+}

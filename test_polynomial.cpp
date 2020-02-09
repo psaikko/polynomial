@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "polynomial.h"
+#include <string>
+#include <sstream>
 
 TEST_CASE( "Default constructor creates zero polynomial" ) {
     Polynomial<int> p;
@@ -35,4 +37,38 @@ TEST_CASE( "Equality checks" ) {
     REQUIRE( p4 != p1 );
     REQUIRE( p1 != p5 );
     REQUIRE( p5 != p1 );
+}
+
+TEST_CASE( "Stream formatting" ) {
+    Polynomial<int> zero;
+    Polynomial<int> constant( std::map<unsigned,int>({{0,5}}) );
+    Polynomial<int> negative_constant( std::map<unsigned,int>({{0,-5}}) );
+    Polynomial<int> linear( std::map<unsigned,int>({{1,2}}) );
+    Polynomial<int> quadratic( {{0,-7}, {1,3}, {2,5}});
+
+    std::stringstream ss;
+    std::string output;
+
+    ss << zero;
+    REQUIRE( ss.str() == "0" );
+
+    ss.str("");
+    ss << constant;
+    REQUIRE( ss.str() == "5" );
+
+    ss.str("");
+    ss << negative_constant;
+    REQUIRE( ss.str() == "-5" );
+
+    ss.str("");
+    ss << linear;
+    REQUIRE( ss.str() == "2x" );
+
+    ss.str("");
+    ss << quadratic;
+    REQUIRE( ss.str() == "5x^2 + 3x - 7" );
+
+    ss.str("");
+    quadratic.print(ss, "y");
+    REQUIRE( ss.str() == "5y^2 + 3y - 7" );
 }
