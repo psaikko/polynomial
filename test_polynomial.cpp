@@ -72,3 +72,23 @@ TEST_CASE( "Stream formatting" ) {
     quadratic.print(ss, "y");
     REQUIRE( ss.str() == "5y^2 + 3y - 7" );
 }
+
+TEST_CASE( "Addition" ) {
+    REQUIRE(false);
+}
+
+TEST_CASE( "Subtraction" ) {
+    REQUIRE(false);
+}
+
+TEST_CASE( "Multiplication" ) {
+    REQUIRE(false);
+}
+
+TEST_CASE( "Differentiation" ) {
+    REQUIRE(false);
+}
+
+TEST_CASE( "Evaluation" ) {
+    REQUIRE(false);
+}
