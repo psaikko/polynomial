@@ -123,6 +123,15 @@ TEST_CASE( "Subtraction" ) {
     REQUIRE( p3.length() == 2 );
 }
 
+TEST_CASE( "Negation" ) {
+    Polynomial<int> p( {{0,-7}, {1,3}, {2,5}});
+    Polynomial<int> negation = -p;
+
+    REQUIRE( negation.coefficient(0) == 7 );
+    REQUIRE( negation.coefficient(1) == -3 );
+    REQUIRE( negation.coefficient(2) == -5 );
+}
+
 TEST_CASE( "Multiplication" ) {
     REQUIRE(false);
 }

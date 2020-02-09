@@ -35,7 +35,7 @@ class Polynomial {
         }
     }
 
-    Polynomial<T> operator+ (Polynomial<T> const &other) {
+    Polynomial<T> operator+ (Polynomial<T> const &other) const {
         Polynomial<T> result(*this);
         for (auto &term : other.terms) {
             unsigned exponent = term.first;
@@ -54,26 +54,19 @@ class Polynomial {
         return result;
     }
 
-    Polynomial<T> operator- (Polynomial<T> const &other) {
+    Polynomial<T> operator- () const {
         Polynomial<T> result(*this);
-        for (auto &term : other.terms) {
-            unsigned exponent = term.first;
-            T coefficient = term.second;
-
-            if (result.terms.count(exponent)) {
-                result.terms[exponent] -= coefficient;
-            } else {
-                result.terms[exponent] = -coefficient;
-            }
-
-            // Remove zero-coefficient terms
-            if (result.terms[exponent] == T()) 
-                result.terms.erase(exponent);
+        for (auto &p : result.terms) {
+            p.second = -p.second;
         }
         return result;
     }
 
-    Polynomial<T> operator* (Polynomial<T> const &other) {
+    Polynomial<T> operator- (Polynomial<T> const &other) const {
+        return *this + -other;
+    }
+
+    Polynomial<T> operator* (Polynomial<T> const &other) const {
         return other;
     }
 
