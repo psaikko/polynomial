@@ -14,7 +14,7 @@ class Polynomial {
 
     explicit Polynomial(std::map<unsigned, T> terms) {
         for (auto &p : terms) {
-            if (p.second != (T)0) {
+            if (p.second != T()) {
                 this->terms[p.first] = p.second;
             }
         }
@@ -28,7 +28,7 @@ class Polynomial {
         if (terms.count(term) != 0) {
             return terms[term];
         } else {
-            return (T)0;
+            return T();
         }
     }
 
@@ -55,7 +55,7 @@ class Polynomial {
     void print(std::ostream& os, std::string variable="x") const {
         // Handle zero polynomial
         if (terms.size() == 0) {
-            os << 0;
+            os << T();
             return;
         }
 
