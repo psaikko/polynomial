@@ -88,7 +88,7 @@ TEST_CASE( "Equality checks" ) {
     REQUIRE( p5 != p1 );
 }
 
-TEST_CASE( "Stream formatting" ) {
+TEST_CASE( "Stream formatting (int)" ) {
     Polynomial<int> zero;
     Polynomial<int> constant( std::map<unsigned,int>({{0,5}}) );
     Polynomial<int> negative_constant( std::map<unsigned,int>({{0,-5}}) );
@@ -96,7 +96,6 @@ TEST_CASE( "Stream formatting" ) {
     Polynomial<int> quadratic( {{0,-7}, {1,3}, {2,5}});
 
     std::stringstream ss;
-    std::string output;
 
     ss << zero;
     REQUIRE( ss.str() == "0" );
@@ -120,6 +119,15 @@ TEST_CASE( "Stream formatting" ) {
     ss.str("");
     quadratic.print(ss, "y");
     REQUIRE( ss.str() == "5y^2 + 3y - 7" );
+}
+
+TEST_CASE( "Stream formatting (float)" ) {
+    Polynomial<float> quadratic( {{0,3.3}, {1,-1.5}, {2,0.22}});
+
+    std::stringstream ss;
+
+    ss << quadratic;
+    REQUIRE( ss.str() == "0.22x^2 - 1.5x + 3.3" );
 }
 
 TEST_CASE( "Addition" ) {
