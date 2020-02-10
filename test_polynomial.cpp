@@ -22,8 +22,8 @@ TEST_CASE( "Constructor doesn't set 0-terms" ) {
 }
 
 TEST_CASE( "Conversions from base type" ) {
-    std::map<unsigned,int> terms = {{0,1}};
-    Polynomial<int> constant(terms);
+    std::map<unsigned,int> term = {{0,1}};
+    Polynomial<int> constant(term);
 
     Polynomial<int> p1(1);
     Polynomial<int> p2 = 1;
@@ -32,11 +32,27 @@ TEST_CASE( "Conversions from base type" ) {
 
     REQUIRE( p1 == constant );
     REQUIRE( p2 == constant );
-    REQUIRE( p3 == constant );
+    REQUIRE( p3 == constant );   
+}
+
+TEST_CASE( "Symmetry of implicit conversion for arithemetic operations" ) {
+    Polynomial<int> p({{0,1},{1,1}});
+
+    REQUIRE( 2*p == p*2 );
+    REQUIRE( 2+p == p+2 );
+    REQUIRE( 2-p == -p-(-2) );
 }
 
 TEST_CASE( "Static constructor for linear term" ) {
+    auto one_x = Polynomial<int>::LinearTerm();
+    auto two_x = Polynomial<int>::LinearTerm(2);
 
+    std::map<unsigned,int> term = {{1,1}};
+    Polynomial<int> x(term);
+    Polynomial<int> two = 2;
+
+    REQUIRE( x == one_x );
+    REQUIRE( x*two == two_x ); 
 }
 
 TEST_CASE( "Composability" ) {

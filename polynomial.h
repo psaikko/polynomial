@@ -44,9 +44,12 @@ class Polynomial {
         }
     }
 
-    Polynomial<T> operator+ (Polynomial<T> const &other) const {
-        Polynomial<T> result(*this);
-        for (auto &term : other.terms) {
+    // Declaration as non-templated friend function to allow 
+    // implicit conversions from numeric types.
+    // See https://web.mst.edu/~nmjxv3/articles/templates.html
+    friend Polynomial operator+ (const Polynomial &lhs, const Polynomial &rhs) {
+        Polynomial<T> result(lhs);
+        for (auto &term : rhs.terms) {
             unsigned exponent = term.first;
             T coefficient = term.second;
 
@@ -67,17 +70,17 @@ class Polynomial {
         return result;
     }
 
-    Polynomial<T> operator- (Polynomial<T> const &other) const {
-        return *this + -other;
+    friend Polynomial operator- (const Polynomial &lhs, const Polynomial &rhs) {
+        return lhs + -rhs;
     }
 
-    Polynomial<T> operator* (Polynomial<T> const &other) const {
+    friend Polynomial operator* (const Polynomial &lhs, const Polynomial &rhs) {
         Polynomial<T> result;
-        for (auto &p1 : terms) {
+        for (auto &p1 : lhs.terms) {
             unsigned exponent_1 = p1.first;
             T coefficient_1 = p1.second;
 
-            for (auto &p2 : other.terms) {
+            for (auto &p2 : rhs.terms) {
                 unsigned exponent_2 = p2.first;
                 T coefficient_2 = p2.second;
 
