@@ -53,7 +53,11 @@ class Polynomial {
             unsigned exponent = term.first;
             T coefficient = term.second;
 
-            result.terms[exponent] += coefficient;
+            if (result.terms.count(exponent)) {
+                result.terms[exponent] += coefficient;
+            } else {
+                result.terms[exponent] = coefficient;
+            }
 
             // Remove zero-coefficient terms
             if (result.terms[exponent] == T()) 
@@ -140,11 +144,12 @@ class Polynomial {
         while (++it != terms.rend()) {
             if (it->second < 0) {
                 os << " - ";
+                os << -it->second;
             } else {
                 os << " + ";
+                os << it->second;
             }
 
-            os << abs(it->second);
             if (it->first > 0)
                 os << variable;
             if (it->first > 1)
