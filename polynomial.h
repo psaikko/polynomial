@@ -152,8 +152,30 @@ class Polynomial {
         }
     }
 
-    T operator() (T value) {
-        return value;
+    template<typename U>
+    U operator() (U value) {
+        U result = U();
+        U tmp = value;
+        unsigned tmp_exponent = 1;
+
+        for (auto &term : terms) {
+            unsigned exponent = term.first;
+            T coefficient = term.second;
+
+            if (exponent == 0) {
+                result += coefficient;
+            } else if (exponent == 1) {
+                result += value * coefficient;
+            } else {
+                while (tmp_exponent < exponent) {
+                    tmp *= value;
+                    tmp_exponent += 1;
+                }
+                result += tmp * coefficient;
+            }
+        }
+
+        return result;
     }
 };
 
