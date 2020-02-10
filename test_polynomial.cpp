@@ -56,7 +56,14 @@ TEST_CASE( "Static constructor for linear term" ) {
 }
 
 TEST_CASE( "Composability" ) {
+    std::map<unsigned, int> terms = {{0,4}, {1,-3}, {2,1}};
 
+    Polynomial<int> p1(terms);
+
+    auto x = Polynomial<int>::LinearTerm();
+    auto p2 = x*x - 3*x + 4;
+
+    REQUIRE( p1 == p2 );
 }
 
 TEST_CASE( "Equality checks" ) {
