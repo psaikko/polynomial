@@ -23,6 +23,15 @@ class Polynomial {
         }
     }
 
+    Polynomial(T value) : terms{{0,value}} 
+    {}
+
+    static Polynomial<T> LinearTerm(T coefficient = T(1)) {
+        Polynomial<T> p;
+        p.terms[1] = coefficient;
+        return p;
+    }
+
     size_t length() {
         return terms.size();
     }

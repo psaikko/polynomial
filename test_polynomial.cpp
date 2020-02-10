@@ -21,6 +21,28 @@ TEST_CASE( "Constructor doesn't set 0-terms" ) {
     REQUIRE( p.length() == 1 );
 }
 
+TEST_CASE( "Conversions from base type" ) {
+    std::map<unsigned,int> terms = {{0,1}};
+    Polynomial<int> constant(terms);
+
+    Polynomial<int> p1(1);
+    Polynomial<int> p2 = 1;
+    Polynomial<int> p3;
+    p3 = p3 + 1;
+
+    REQUIRE( p1 == constant );
+    REQUIRE( p2 == constant );
+    REQUIRE( p3 == constant );
+}
+
+TEST_CASE( "Static constructor for linear term" ) {
+
+}
+
+TEST_CASE( "Composability" ) {
+
+}
+
 TEST_CASE( "Equality checks" ) {
     // Explicit cast to std::map required 
     // likely due to gcc (v. 7.4.0, 9.2.0) bug 
@@ -155,5 +177,15 @@ TEST_CASE( "Differentiation" ) {
 }
 
 TEST_CASE( "Evaluation" ) {
-    REQUIRE(false);
+    Polynomial<int> linear( {{0,-2},{1,1}} );
+
+    for (int i = -10; i <= 10; ++i) {
+        REQUIRE( linear(i) == i-2 );
+    }
+
+    Polynomial<int> quadratic( {{0,-2},{1,1},{2,-2}} );
+
+    for (int i = -10; i <= 10; ++i) {
+        REQUIRE( quadratic(i) == -2*i*i + i - 2 );
+    }
 }
