@@ -7,8 +7,8 @@
 
 // Helper functions for printing
 template<typename T> bool tSign(T t) {
-    if (t < 0) return false;
-    return true;
+    if (t < 0) return true;
+    return false;
 }
 template<typename T> T tAbs(T t) {
     if (t < 0) return -t;
