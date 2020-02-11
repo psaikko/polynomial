@@ -3,6 +3,27 @@
 #include <map>
 #include <utility> // std::pair
 #include <string>
+#include <complex>
+
+// Helper functions for printing
+template<typename T> bool tSign(T t) {
+    if (t < 0) return false;
+    return true;
+}
+template<typename T> T tAbs(T t) {
+    if (t < 0) return -t;
+    return t;
+}
+
+// Specialization for complex type
+template<typename U>
+bool tSign(std::complex<U>) {
+    return false;
+}
+template<typename U>
+std::complex<U> tAbs(std::complex<U> t) {
+    return t;
+}
 
 template<typename T>
 class Polynomial {
@@ -23,9 +44,11 @@ class Polynomial {
         }
     }
 
+    // Enable implicit conversion from coefficient type to constant term
     Polynomial(T value) : terms{{0,value}} 
     {}
 
+    // Construct a linear term / variable for convenience
     static Polynomial<T> LinearTerm(T coefficient = T(1)) {
         Polynomial<T> p;
         p.terms[1] = coefficient;
@@ -53,11 +76,7 @@ class Polynomial {
             unsigned exponent = term.first;
             T coefficient = term.second;
 
-            if (result.terms.count(exponent)) {
-                result.terms[exponent] += coefficient;
-            } else {
-                result.terms[exponent] = coefficient;
-            }
+            result.terms[exponent] += coefficient;
 
             // Remove zero-coefficient terms
             if (result.terms[exponent] == T()) 
@@ -142,13 +161,8 @@ class Polynomial {
 
         // Rest of the terms
         while (++it != terms.rend()) {
-            if (it->second < 0) {
-                os << " - ";
-                os << -it->second;
-            } else {
-                os << " + ";
-                os << it->second;
-            }
+            os << (tSign(it->second) ? " - " : " + ");
+            os << tAbs(it->second);
 
             if (it->first > 0)
                 os << variable;
@@ -157,6 +171,7 @@ class Polynomial {
         }
     }
 
+    // evaluate the polynomial at a point
     template<typename U>
     U operator() (U value) {
         U result = U();
